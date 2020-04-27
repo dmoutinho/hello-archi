@@ -5,7 +5,10 @@ on:
     types: [created]
 
 # Environment variables available to all jobs and steps in this workflow
-
+env:
+  DOCKER_USER=${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
+  
 jobs:
   setup-build-publish-deploy:
     name: Build and Push
@@ -19,4 +22,11 @@ jobs:
     - name: Build
       run: |        
        docker run --rm -v $PWD/output:/output -v $PWD/model:/model dmoutinho/archimatetool --html.createReport /output/report --loadModel /model/model.archimate
-       echo "$GITHUB_REF"
+
+    # Push the Docker image
+    - name: Push
+      run: |        
+       docker build -t dmoutinho/hello-archi:"$GITHUB_REF" .
+       docker login --username "$DOCKER_USER" --password "$DOCKER_PASSWORD"
+       docker push dmoutinho/hello-archi:"$GITHUB_REF"
+       docker logout
