@@ -1,0 +1,23 @@
+name: Build and Push to Docker Hub
+
+on:
+  release:
+    types: [created]
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+
+jobs:
+  setup-build-publish-deploy:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    # Build the Docker image
+    - name: Build
+      run: |        
+        docker run --rm -it -v $PWD/output:/output -v $PWD/model:/model:ro dmoutinho/archimatetool --html.createReport /output/report --loadModel /model/model.archimate
+        ls output/report/
