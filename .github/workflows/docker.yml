@@ -19,4 +19,3 @@ jobs:
     - name: Build
       run: |        
         docker run --rm -it -v $PWD/output:/output -v $PWD/model:/model:ro dmoutinho/archimatetool --html.createReport /output/report --loadModel /model/model.archimate
-        ls output/report/
