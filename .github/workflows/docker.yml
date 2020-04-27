@@ -19,3 +19,6 @@ jobs:
     - name: Build
       run: |        
         docker run hello-world
+        echo $PWD
+        touch $PWD/teste
+        ls $PWD
