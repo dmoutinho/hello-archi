@@ -5,6 +5,7 @@ on:
     types: [created]
 
 # Environment variables available to all jobs and steps in this workflow
+env:
 
 jobs:
   setup-build-publish-deploy:
@@ -18,5 +19,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |        
-        echo $PWD
-        ls $PWD
+        docker run --rm -it -v $PWD/output:/output -v $PWD/model:/model:ro dmoutinho/archimatetool \
+        --html.createReport /output/report \
+        --loadModel /model/model.archimate
+        ls output/report/
