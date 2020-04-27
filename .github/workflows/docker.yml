@@ -19,3 +19,4 @@ jobs:
     - name: Build
       run: |        
        docker run --rm -v $PWD/output:/output -v $PWD/model:/model dmoutinho/archimatetool --html.createReport /output/report --loadModel /model/model.archimate
+       echo "$GITHUB_REF"
