@@ -18,4 +18,4 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |        
-        docker run --rm -it -v output:/output -v model:/model:ro dmoutinho/archimatetool --html.createReport /output/report --loadModel /model/model.archimate
+        echo $PWD
