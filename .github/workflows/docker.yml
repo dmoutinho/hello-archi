@@ -26,7 +26,7 @@ jobs:
     # Push the Docker image
     - name: Push
       run: |        
-       docker build -t dmoutinho/hello-archi:"$GITHUB_REF" .
+       docker build -t dmoutinho/hello-archi:$(echo $GITHUB_REF | cut -d / -f 3) .
        docker login --username "$DOCKER_USER" --password "$DOCKER_PASSWORD"
        docker push dmoutinho/hello-archi:"$GITHUB_REF"
        docker logout
